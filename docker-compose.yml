@@ -1,0 +1,69 @@
+
+services:
+  auth-service:
+    build:
+      context: ./auth-service
+    image: invent-air-auth:1.0
+    container_name: invent-air-auth
+    env_file:
+      - ./auth-service/.env
+    environment:
+      DB_HOST: host.docker.internal
+      JWT_PRIVATE_KEY_PATH: /run/secrets/private_key.pem
+    volumes:
+      - ./auth-service/keys/private_key.pem:/run/secrets/private_key.pem:ro
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
+
+  inventario-service:
+    build:
+      context: ./inventario-service
+    image: invent-air-inventario:1.0
+    container_name: invent-air-inventario
+    env_file:
+      - ./inventario-service/.env
+    environment:
+      DB_HOST: host.docker.internal
+    ports:
+      - "8002:8000"
+    restart: unless-stopped
+
+  ventas-service:
+    build:
+      context: ./ventas-service
+    image: invent-air-ventas:1.0
+    container_name: invent-air-ventas
+    env_file:
+      - ./ventas-service/.env
+    environment:
+      DB_HOST: host.docker.internal
+    ports:
+      - "8003:8000"
+    restart: unless-stopped
+
+  compras-service:
+    build:
+      context: ./compras-service
+    image: invent-air-compras:1.0
+    container_name: invent-air-compras
+    env_file:
+      - ./compras-service/.env
+    environment:
+      DB_HOST: host.docker.internal
+    ports:
+      - "8004:8000"
+    restart: unless-stopped
+
+  analisis-service:
+    build:
+      context: ./analisis-service
+    image: invent-air-analisis:1.0
+    container_name: invent-air-analisis
+    env_file:
+      - ./analisis-service/.env
+    environment:
+      DB_HOST: host.docker.internal
+    ports:
+      - "8005:8000"
+    restart: unless-stopped

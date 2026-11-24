@@ -1,34 +1,34 @@
+cat >> .gitignore <<'EOF'
 
-# Variables de entorno y secretos
+# Credenciales y sesiones
+cookies.txt
+**/cookies.txt
 .env
 .env.*
-!.env.example
-
-# Claves privadas y certificados
-**/keys/private_key.pem
+**/.env
+**/.env.*
+*.pem
 *.key
-*.p12
-*.pfx
 
-# Python
-**/venv/
-**/.venv/
-**/__pycache__/
-*.py[cod]
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-
-# JavaScript
+# React / Node
 **/node_modules/
 **/dist/
-**/build/
-**/coverage/
 
-# Sistema operativo y editores
+# Python
+**/.venv/
+**/venv/
+**/__pycache__/
+*.pyc
+
+# Archivos temporales
 .DS_Store
-.vscode/
-.idea/
-
-# Logs
+**/.DS_Store
+logs/
 *.log
+*.zip
+
+# Salidas pesadas de Spark
+invent-air-spark/salida_spark/datos_limpios/
+invent-air-spark/salida_spark/modelo_spark/
+invent-air-spark/salida_spark/predicciones/
+EOF

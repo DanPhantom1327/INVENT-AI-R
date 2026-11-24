@@ -95,5 +95,34 @@ class MensajeTests(unittest.TestCase):
         self.assertIn("28 dias", msg)
 
 
+class CoberturaEfectivaTests(unittest.TestCase):
+    def test_gana_la_historica_si_es_menor(self):
+        self.assertEqual(calculos.cobertura_efectiva(D("2.0"), D("3.0")), (D("2.0"), "HISTORICO"))
+
+    def test_gana_la_proyectada_si_es_menor(self):
+        self.assertEqual(calculos.cobertura_efectiva(D("7.6"), D("4.2")), (D("4.2"), "PROYECTADO"))
+
+    def test_empate_gana_la_historica(self):
+        self.assertEqual(calculos.cobertura_efectiva(D("3.0"), D("3.0")), (D("3.0"), "HISTORICO"))
+
+    def test_proyectada_none_se_ignora(self):
+        self.assertEqual(calculos.cobertura_efectiva(D("9.5"), None), (D("9.5"), "HISTORICO"))
+
+    def test_historica_none_usa_la_proyectada(self):
+        self.assertEqual(calculos.cobertura_efectiva(None, D("4.0")), (D("4.0"), "PROYECTADO"))
+
+    def test_ninguna_calculable(self):
+        self.assertEqual(calculos.cobertura_efectiva(None, None), (None, None))
+
+    def test_mensaje_proyectado(self):
+        msg = calculos.construir_mensaje_proyectado(
+            "Mango fresco", "kg", D("124.42"), 32.2345, D("4.2"), 5,
+            "regresion_tendencia_semanal", 14)
+        for fragmento in ("Mango fresco", "4.2 dias", "consumo proyectado",
+                          "umbral configurado: 5", "124.42 kg", "32.23 kg",
+                          "regresion_tendencia_semanal", "promedio de los proximos 14 dias"):
+            self.assertIn(fragmento, msg)
+
+
 if __name__ == "__main__":
     unittest.main()

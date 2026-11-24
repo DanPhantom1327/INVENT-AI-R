@@ -9,10 +9,14 @@ class CoberturaCalculadaSerializer(serializers.Serializer):
     unidad_medida = serializers.CharField()
     stock_actual = serializers.DecimalField(max_digits=12, decimal_places=2)
     consumo_diario = serializers.DecimalField(max_digits=12, decimal_places=2)
+    cobertura_historica_dias = serializers.DecimalField(max_digits=6, decimal_places=1, allow_null=True)
+    cobertura_proyectada_dias = serializers.DecimalField(max_digits=6, decimal_places=1, allow_null=True)
     cobertura_dias = serializers.DecimalField(max_digits=6, decimal_places=1, allow_null=True)
+    base_alerta = serializers.CharField(allow_null=True)
     umbral_dias = serializers.IntegerField(allow_null=True)
     severidad = serializers.CharField(allow_null=True)
     accion_alerta = serializers.CharField()
+    advertencia = serializers.CharField(allow_null=True)
 
 
 class CoberturaGuardadaSerializer(serializers.Serializer):

@@ -24,3 +24,9 @@ class CookieJWTAuthentication(authentication.BaseAuthentication):
             is_authenticated=True,
         )
         return (usuario, payload)
+
+    def authenticate_header(self, request):
+        # Sin este encabezado, Django REST Framework convierte los 401 en 403 y
+        # el frontend no puede distinguir "sesion vencida" (401: renovar el
+        # token) de "sin permiso para esta accion" (403: mostrar el rechazo).
+        return 'Cookie realm="invent-air"'

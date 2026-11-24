@@ -97,3 +97,35 @@ def construir_mensaje(nombre, unidad, stock, consumo_diario, cobertura_dias,
            redondear(stock), unidad, redondear(consumo_diario), unidad,
            ventana_dias)
     )
+
+
+# Horizonte con el que las alertas miran hacia adelante (maximo permitido).
+HORIZONTE_ALERTAS = 30
+
+
+def cobertura_efectiva(cobertura_historica, cobertura_proyectada):
+    """Combina las dos estimaciones tomando la MENOR (la mas pesimista).
+
+    Devuelve (dias, base) con base 'HISTORICO' o 'PROYECTADO', o (None, None)
+    si ninguna es calculable. Una cobertura proyectada None significa que el
+    stock cubre todo el horizonte proyectado: no aporta riesgo y se ignora.
+    Ante un empate gana 'HISTORICO'."""
+    candidatos = []
+    if cobertura_historica is not None:
+        candidatos.append((a_decimal(cobertura_historica), "HISTORICO"))
+    if cobertura_proyectada is not None:
+        candidatos.append((a_decimal(cobertura_proyectada), "PROYECTADO"))
+    if not candidatos:
+        return None, None
+    return min(candidatos, key=lambda c: c[0])
+
+
+def construir_mensaje_proyectado(nombre, unidad, stock, consumo_proyectado,
+                                 cobertura_dias, umbral_dias, modelo, dias_promediados):
+    return (
+        "%s: cobertura estimada de %s dias contra el consumo proyectado "
+        "(umbral configurado: %s). Stock %s %s; consumo diario proyectado %s %s "
+        "(modelo %s, promedio de los proximos %d dias)."
+        % (nombre, cobertura_dias, umbral_dias, redondear(stock), unidad,
+           redondear(consumo_proyectado), unidad, modelo, dias_promediados)
+    )
