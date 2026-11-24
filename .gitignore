@@ -32,3 +32,8 @@ invent-air-spark/salida_spark/datos_limpios/
 invent-air-spark/salida_spark/modelo_spark/
 invent-air-spark/salida_spark/predicciones/
 EOF
+# Dataset sintético local
+invent-air-spark/INVENT_AI_R_100000_datos_sinteticos.csv
+
+# Script local de pruebas de autenticación
+probar_login.py
