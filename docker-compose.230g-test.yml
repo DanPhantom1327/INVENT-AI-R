@@ -1,0 +1,20 @@
+services:
+  auth-service:
+    environment:
+      DB_NAME: invent_air
+
+  inventario-service:
+    environment:
+      DB_NAME: invent_air
+
+  ventas-service:
+    environment:
+      DB_NAME: invent_air
+
+  compras-service:
+    environment:
+      DB_NAME: invent_air
+
+  analisis-service:
+    environment:
+      DB_NAME: invent_air

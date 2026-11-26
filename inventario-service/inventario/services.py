@@ -2,6 +2,7 @@
 
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError, transaction
+from decimal import Decimal
 
 from .models import (
     ItemInventario,
@@ -41,6 +42,34 @@ class ItemService:
         return qs.order_by("nombre")
 
 
+def validar_cantidad_inventario(item_id, cantidad):
+    try:
+        item = ItemInventario.objects.get(id=item_id)
+    except ItemInventario.DoesNotExist:
+        raise ValidationError(
+            "El producto seleccionado no existe."
+        )
+
+    cantidad = Decimal(str(cantidad))
+
+    if not cantidad.is_finite() or cantidad <= 0:
+        raise ValidationError(
+            "La cantidad debe ser mayor que cero."
+        )
+
+    if item.tipo == ItemInventario.PRODUCTO_TERMINADO:
+        if item.unidad_medida != "unidad":
+            raise ValidationError(
+                "La pulpa debe manejarse en empaques."
+            )
+
+        if cantidad != cantidad.to_integral_value():
+            raise ValidationError(
+                "La pulpa de 230g solo admite empaques completos."
+            )
+
+    return cantidad
+
 class MovimientoService:
 
     @staticmethod
@@ -68,6 +97,10 @@ class MovimientoService:
                 "registrar_ajuste(), no este metodo"
             )
 
+        cantidad = validar_cantidad_inventario(
+        item_id,
+        cantidad
+)
         try:
 
             with transaction.atomic():
@@ -118,6 +151,10 @@ class MovimientoService:
                 "efecto debe ser SUMA o RESTA"
             )
 
+        cantidad = validar_cantidad_inventario(
+        item_id,
+        cantidad
+)
         try:
 
             with transaction.atomic():

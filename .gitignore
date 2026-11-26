@@ -37,3 +37,11 @@ invent-air-spark/INVENT_AI_R_100000_datos_sinteticos.csv
 
 # Script local de pruebas de autenticación
 probar_login.py
+respaldos/
+
+# Copias locales de seguridad
+*.bak
+*.bak-*
+
+# Script destructivo de regeneración local
+scripts/regenerar_sinteticos_230g_TEST.sql

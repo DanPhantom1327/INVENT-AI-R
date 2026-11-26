@@ -1,0 +1,31 @@
+.ia-page { display: grid; gap: 18px; }
+.ia-intro { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+.ia-intro p { line-height: 1.7; margin-top: 7px; }
+.ia-controls { display: flex; align-items: end; gap: 9px; flex-wrap: wrap; }
+.ia-controls label { display: grid; gap: 5px; color: #94b5bf; font-size: 11px; }
+.ia-controls select { background: #0d1924; color: #deeee9; border: 1px solid #355265; padding: 10px; border-radius: 8px; }
+.ia-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.ia-metric { border: 1px solid #24433f; background: #112b2b; border-radius: 13px; padding: 20px; }
+.ia-metric span { display: block; color: #a5bdbd; font-size: 12px; }
+.ia-metric strong { display: block; margin-top: 8px; font-size: 28px; color: #57dfb8; }
+.ia-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.ia-bar-group { display: grid; gap: 22px; margin: 24px 0 10px; }
+.ia-bar-head { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; margin-bottom: 8px; }
+.ia-bar-head span { color: #bacfd5; }
+.ia-bar-head strong { color: #71ecd0; text-align: right; }
+.ia-track { height: 13px; border-radius: 100px; background: #263846; overflow: hidden; }
+.ia-fill { height: 100%; background: linear-gradient(90deg,#217f7b,#51dfad); border-radius: 100px; min-width: 0; }
+.ia-status { display: inline-block; border-radius: 20px; font-size: 11px; padding: 5px 9px; background: #243b46; color: #dce6e9; white-space: nowrap; }
+.ia-status.safe { background: #194a3d; color: #77e5bb; }
+.ia-status.low { background: #52482b; color: #f7d486; }
+.ia-status.medium { background: #583d2a; color: #ffc191; }
+.ia-status.high { background: #5e2b30; color: #ffb5ad; }
+.ia-status.neutral { color: #adc0cb; }
+.ia-alert { display: flex; align-items: start; gap: 15px; padding: 17px 0; border-bottom: 1px solid #283844; }
+.ia-alert strong { font-size: 13px; }
+.ia-alert p { margin-top: 5px; line-height: 1.7; }
+.ia-empty { color: #a1b1bd!important; padding: 22px 0; line-height: 1.7; }
+.ia-disclaimer { color: #91a9b5; font-size: 12px; line-height: 1.7; margin: 0 3px; }
+.notice.ia-success { color: #a7f2d8; background: #16443b; border: 1px solid #287a63; }
+@media (max-width: 950px) { .ia-columns { grid-template-columns: 1fr; } }
+@media (max-width: 650px) { .ia-metrics { grid-template-columns: 1fr; } .ia-controls { width: 100%; } }
